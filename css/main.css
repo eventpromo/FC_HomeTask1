@@ -1,0 +1,28 @@
+.container {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "content"
+    "footer";
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr auto;
+  grid-gap: 1em;
+  height: 100vh;
+}
+
+header,
+main,
+footer {
+  background: #eaeaea;
+  padding: 1em;
+}
+
+body {
+  margin: 0 auto;
+}
+
+.container > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
