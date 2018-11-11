@@ -1,4 +1,4 @@
-import config from './config';
+import config from '../config';
 
 class Http {
   constructor(apiUrl, apiKey) {
@@ -6,7 +6,15 @@ class Http {
     this.key = apiKey;
   }
 
-  resource = path => `${this.url}${path}?apiKey=${this.key}`;
+  resource = (path, query = {}) => {
+    const url = new URL(`${this.url}${path}`);
+    const params = {
+        apiKey: this.key,
+        ...query,
+    }
+    url.search = new URLSearchParams(params);    
+    return url;
+  };
 
   parseJSON = response => response.json()
 
@@ -20,7 +28,9 @@ class Http {
     });
   }
 
-  request = (url, options) => fetch(this.resource(url), options).then(this.checkStatus).then(this.parseJSON);
+  request = (url, options = {}) => fetch(this.resource(url), options.params, options)
+    .then(this.checkStatus)
+    .then(this.parseJSON);
   
   get = url => this.request(url);
 

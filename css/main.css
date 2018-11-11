@@ -6,22 +6,26 @@
     "footer";
   grid-template-columns: auto;
   grid-template-rows: auto 1fr auto;
-  grid-gap: 1em;
+  grid-gap: 20px;
   height: 100vh;
 }
 
-header,
-main,
-footer {
-  background: #eaeaea;
-  padding: 1em;
+main {
+  padding: 0 20px;
 }
 
-body {
-  margin: 0 auto;
+header, footer {
+  padding: 20px;
+  color: #ffffff;
+  background-color: #4832c2;
 }
 
-.container > * {
+body, h1 {
+  margin: 0;
+  padding: 0;
+}
+
+.container > header, footer {
   display: flex;
   align-items: center;
   justify-content: center;
