@@ -1,17 +1,32 @@
 import http from './Http';
+import config from '../config';
 
 class Service {
-  constructor(url) {
-    this.url = url;
+  constructor(resource) {
+    this.url = `${config.API_URL}${resource}`;
+  }
+  
+  searchUrl = (params = {}) => {
+    const url = new URL(this.url);
+    url.search = new URLSearchParams(params);    
+    return url;
+  };
+
+  create(model) {
+    return http.post(this.url, model);
+  } 
+
+  read(filter) {
+    return http.get(this.searchUrl(filter));
   }
 
-  create = model => http.post(this.url, model);
+  update(id, model) {
+    return http.put(`${this.url}/${id}`, model);
+  }
 
-  read = filter => http.get(this.url, filter);
-
-  update = (id, model) => http.put(`${this.url}/${id}`, model);
-
-  del = id => http.del(`${this.url}/${id}`);
+  del(id) {
+    return http.del(`${this.url}/${id}`);
+  }
 }
 
 export default Service;

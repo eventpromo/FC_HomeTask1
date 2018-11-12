@@ -1,14 +1,11 @@
-import newsService from './services/NewsService';
+import newsService from './services/SportNewsService';
 import NewsList from './components/NewsList';
 
-var NewsListElement = document.registerElement('news-list',  { 
-  prototype: Object.create(NewsList.prototype)
-});
+customElements.define('news-list', NewsList);
 
 document.addEventListener('DOMContentLoaded', () => {
-  debugger;
-  newsService.read().then(items => {
+  newsService.read().then(data => {
     const main = document.querySelector('main');
-    main.appendChild(new NewsListElement(items));
+    main.appendChild(new NewsList(data));
   });
 });
