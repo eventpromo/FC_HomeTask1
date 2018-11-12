@@ -20,7 +20,13 @@ header, footer {
   background-color: #4832c2;
 }
 
-body, h1 {
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+h1 {
   margin: 0;
   padding: 0;
 }
