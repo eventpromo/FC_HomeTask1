@@ -1,31 +1,38 @@
+import NewsItem from './NewsItem';
+
 class NewsList extends HTMLElement {
+  static get observedAttributes() {
+    return ['items'];
+  }
+
   constructor({ articles = [] }) {
     super();
     this.news = articles;
     this.className = 'news-list';
+    this.render();
+  }
 
-    const newsElements = this.news.map(item => {
-      const { title, description } = item;
-      
-      const elem = document.createElement('div');
-      elem.className = 'news-list__item news-item';
-      
-      const titleElement = document.createElement('div');
-      titleElement.className = 'news-item__title';
-      titleElement.innerHTML = title;
+  get items() {
+    return this.news;
+  }
+  
+  set items(newValue) {
+    this.setAttribute('items', newValue);
+  }
 
-      const bodyElement = document.createElement('div');
-      bodyElement.className = 'news-item__body';
-      bodyElement.innerHTML = description;
+  render() {
+    this.innerHTML = '';
+    const newsElements = this.news.map(item => new NewsItem(item));
+    newsElements.forEach(element => this.appendChild(element));
+  }
 
-      elem.appendChild(titleElement);
-      elem.appendChild(bodyElement);
-      return elem;
-    });
-
-    newsElements.forEach(element => {
-      this.appendChild(element);
-    });
+  attributeChangedCallback(name, oldValue, newValue) {
+    switch (name) {
+      case 'items':
+        this.news = newValue || [];
+        this.render();
+      break;
+    }
   }
 }
 

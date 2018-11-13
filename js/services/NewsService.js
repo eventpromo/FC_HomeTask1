@@ -1,7 +1,7 @@
 import http from './Http';
 import config from '../config';
 
-class Service {
+class NewsService {
   constructor(resource) {
     this.url = `${config.API_URL}${resource}`;
   }
@@ -29,4 +29,4 @@ class Service {
   }
 }
 
-export default Service;
+export default NewsService;
