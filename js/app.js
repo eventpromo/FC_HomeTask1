@@ -6,8 +6,14 @@ customElements.define('news-list', NewsList);
 customElements.define('news-item', NewsItem);
 
 document.addEventListener('DOMContentLoaded', () => {
-  newsService.read('sport').then(data => {
-    const main = document.querySelector('main');
-    main.appendChild(new NewsList(data));
+  const mainElement = document.querySelector('main');
+  const searchElement = document.querySelector('#news-query');
+  const listElement = new NewsList({});
+  mainElement.appendChild(listElement);
+
+  searchElement.addEventListener('change', (ev) => {
+    newsService.read(ev.target.value).then(data => {
+      listElement.items = data.articles;
+    });
   });
 });

@@ -17,7 +17,7 @@ class NewsList extends HTMLElement {
   }
   
   set items(newValue) {
-    this.setAttribute('items', newValue);
+    this.setAttribute('items', JSON.stringify(newValue));
   }
 
   render() {
@@ -29,7 +29,7 @@ class NewsList extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
       case 'items':
-        this.news = newValue || [];
+        this.news = JSON.parse(newValue) || [];
         this.render();
       break;
     }

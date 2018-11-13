@@ -3,26 +3,31 @@
   display: grid;
   grid-gap: 20px;
   grid-template-columns: repeat(8, 1fr);
+  margin-top: 20px;
 }
 
 .news-filter {
   padding: 20px;
   border: 1px black dotted;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  justify-content: center;
 }
 
 .news-filter label {
   color: #4832c2;
   font-size: 18px;
   font-weight: bold;
-  width: 80px;
   display: inline-block;
 }
 
 .news-filter input {
   padding: 7px;
-  width: calc(100% - 85px);
+  width: calc(100% - 10px);
   box-sizing: border-box;
   display: inline-block;
+  margin-left: 10px;
 }
 
 .news-list__item {
