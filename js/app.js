@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   searchElement.addEventListener('change', (ev) => {
     if (ev.target.value) {
-      newsService.read().then(data => {
+      newsService.read(ev.target.value).then(data => {
         listElement.items = data.articles;
       });
     }
