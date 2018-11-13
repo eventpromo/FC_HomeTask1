@@ -12,8 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   mainElement.appendChild(listElement);
 
   searchElement.addEventListener('change', (ev) => {
-    newsService.read(ev.target.value).then(data => {
-      listElement.items = data.articles;
-    });
+    if (ev.target.value) {
+      newsService.read().then(data => {
+        listElement.items = data.articles;
+      });
+    }
   });
 });
