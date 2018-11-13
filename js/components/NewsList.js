@@ -1,7 +1,7 @@
 class NewsList extends HTMLElement {
-  constructor(data = {}) {
+  constructor({ articles = [] }) {
     super();
-    this.news = data.articles || [];
+    this.news = articles;
     this.className = 'news-list';
 
     const newsElements = this.news.map(item => {
