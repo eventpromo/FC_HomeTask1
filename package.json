@@ -20,8 +20,6 @@
     "@webcomponents/custom-elements": "^1.2.1",
     "@webcomponents/webcomponentsjs": "^2.2.0",
     "es6-promise": "^4.2.5",
-    "url-polyfill": "^1.1.0",
-    "url-search-params-polyfill": "^5.0.0",
     "whatwg-fetch": "^3.0.0"
   }
 }

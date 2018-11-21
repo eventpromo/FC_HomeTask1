@@ -7,8 +7,12 @@ class NewsService {
   }
   
   searchUrl = (params = {}) => {
-    const sUrl = new URL(this.url);
-    sUrl.search = new URLSearchParams(params);
+    const sUrl = Object.entries(params).map(item => {
+      let [key, value] = item;
+      return { key, value };
+    }).reduce((accumulator, { key, value }) => {
+      return `${accumulator}${key}=${value}`;
+    }, `${this.url}?`);
     return sUrl;
   };
 

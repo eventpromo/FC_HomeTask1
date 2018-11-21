@@ -11,8 +11,6 @@ module.exports = {
         "whatwg-fetch",
         "@babel/polyfill",
         "@webcomponents/webcomponentsjs/webcomponents-bundle.js",
-        "url-polyfill",
-        "url-search-params-polyfill",
         "./js/app.js",
     ],
     output: {
