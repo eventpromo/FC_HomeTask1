@@ -7,13 +7,10 @@ class NewsService {
   }
   
   searchUrl = (params = {}) => {
-    const sUrl = Object.entries(params).map(item => {
+    return Object.entries(params).map(item => {
       let [key, value] = item;
       return { key, value };
-    }).reduce((accumulator, { key, value }) => {
-      return `${accumulator}${key}=${value}`;
-    }, `${this.url}?`);
-    return sUrl;
+    }).reduce((accumulator, { key, value }) => `${accumulator}${key}=${value}`, `${this.url}?`);
   };
 
   async create(model) {
