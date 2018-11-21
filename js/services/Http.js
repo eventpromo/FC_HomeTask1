@@ -5,32 +5,31 @@ class Http {
         this.key = apiKey;
     }
 
-    parseJSON = response => response.json();
-
-    checkStatus = response => {
+    checkStatus(response) {
         if (response.status >= 200 && response.status < 300) {
             return response;
+        } else {
+            var error = new Error(response.statusText)
+            error.response = response;
+            throw error
         }
+    }     
 
-        return this.parseJSON(response).then((body) => {
-            throw new Error(body.statusText);
-        });
-    }
-
-    request = (url, options = {}) => {
+    request = async (url, options = {}) => {
         let req = new Request(url, options)
         req.headers.append('authorization', `bearer ${this.key}`);
-        return fetch(req)
-            .then(this.checkStatus)
-            .then(this.parseJSON);
+        let response = await fetch(req);
+        this.checkStatus(response);
+        let json = await response.json();
+        return json;
     }
 
-    get(url) {
-        return this.request(url);
+    async get(url) {
+        return await this.request(url);
     }
 
-    post(url, data) {
-        return this.request(url, {
+    async post(url, data) {
+        return await this.request(url, {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
@@ -40,12 +39,12 @@ class Http {
         });
     }
 
-    del(url) {
-        return this.request(url, { method: 'delete' });
+    async del(url) {
+        return await this.request(url, { method: 'delete' });
     }
 
-    put(url, data) {
-        this.request(url, {
+    async put(url, data) {
+        return await this.request(url, {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',

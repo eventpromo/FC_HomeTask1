@@ -11,11 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const listElement = new NewsList({});
   mainElement.appendChild(listElement);
 
-  searchElement.addEventListener('change', (ev) => {
+  searchElement.addEventListener('change', async (ev) => {
     if (ev.target.value) {
-      newsService.read(ev.target.value).then(data => {
-        listElement.items = data.articles;
-      });
+      const data = await newsService.read(ev.target.value);
+      listElement.items = data.articles;
     }
   });
 });

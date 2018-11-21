@@ -10,6 +10,7 @@ class NewsList extends HTMLElement {
     this.news = articles;
     this.className = 'news-list';
     this.render();
+    this.currentIndex = 0;
   }
 
   get items() {
@@ -22,8 +23,9 @@ class NewsList extends HTMLElement {
 
   render() {
     this.innerHTML = '';
-    const newsElements = this.news.map(item => new NewsItem(item));
-    newsElements.forEach(element => this.appendChild(element));
+    for(let element of this){
+      this.appendChild(element);
+    }
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -32,6 +34,18 @@ class NewsList extends HTMLElement {
         this.news = JSON.parse(newValue) || [];
         this.render();
       break;
+    }
+  }
+
+  [Symbol.iterator]() {
+    return {
+      next: () => {
+        if (this.currentIndex < this.news.length) {
+          return { value: new NewsItem(this.news[this.currentIndex++]), done: false };
+        }
+        this.currentIndex = 0;
+        return {value: undefined, done: true};
+      }
     }
   }
 }

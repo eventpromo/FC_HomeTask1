@@ -7,25 +7,25 @@ class NewsService {
   }
   
   searchUrl = (params = {}) => {
-    const url = new URL(this.url);
-    url.search = new URLSearchParams(params);    
-    return url;
+    const sUrl = new URL(this.url);
+    sUrl.search = new URLSearchParams(params);
+    return sUrl;
   };
 
-  create(model) {
-    return http.post(this.url, model);
+  async create(model) {
+    return await http.post(this.url, model);
   } 
 
-  read(filter) {
-    return http.get(this.searchUrl(filter));
+  async read(filter) {
+    return await http.get(this.searchUrl(filter));
   }
 
-  update(id, model) {
-    return http.put(`${this.url}/${id}`, model);
+  async update(id, model) {
+    return await http.put(`${this.url}/${id}`, model);
   }
 
-  del(id) {
-    return http.del(`${this.url}/${id}`);
+  async del(id) {
+    return await http.del(`${this.url}/${id}`);
   }
 }
 
