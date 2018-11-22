@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const mainElement = document.querySelector('main');
   const searchElement = document.querySelector('#news-query');
   const listElement = new NewsList({});
+  listElement.className += ' main__item';  
   mainElement.appendChild(listElement);
 
   searchElement.addEventListener('change', async (ev) => {
