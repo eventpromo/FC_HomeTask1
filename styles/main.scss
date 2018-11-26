@@ -43,3 +43,23 @@ h1 {
 .footer-link {
   color: #ffffff;
 }
+
+.news-filter {
+  padding: 20px;
+  border: 1px black dotted;  
+  display: flex;
+  align-items: center;
+}
+
+.news-filter label {
+  color: #4832c2;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.news-filter input {
+  padding: 7px;
+  box-sizing: border-box;
+  margin-left: 10px;
+  width: 100%;
+}
