@@ -6,7 +6,7 @@ class QueryNewsService extends Service {
   }
 
   async read(query) {
-    return await super.read({ q: query });
+    return super.read({ q: query });
   }
 }
 

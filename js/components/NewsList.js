@@ -1,4 +1,5 @@
 import NewsItem from './NewsItem';
+import '../../styles/news.scss';
 
 class NewsList extends HTMLElement {
   static get observedAttributes() {
@@ -16,23 +17,27 @@ class NewsList extends HTMLElement {
   get items() {
     return this.news;
   }
-  
+
   set items(newValue) {
     this.setAttribute('items', JSON.stringify(newValue));
   }
 
   render() {
     this.innerHTML = '';
-    for(let element of this){
+    /* eslint-disable */
+    for (let element of this) {
       this.appendChild(element);
     }
+    /* eslint-enable */
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
-      case 'items':
-        this.news = JSON.parse(newValue) || [];
-        this.render();
+    case 'items':
+      this.news = JSON.parse(newValue) || [];
+      this.render();
+      break;
+    default:
       break;
     }
   }
@@ -41,12 +46,14 @@ class NewsList extends HTMLElement {
     return {
       next: () => {
         if (this.currentIndex < this.news.length) {
-          return { value: new NewsItem(this.news[this.currentIndex++]), done: false };
+          const index = this.currentIndex;
+          this.currentIndex += 1;
+          return { value: new NewsItem(this.news[index]), done: false };
         }
         this.currentIndex = 0;
-        return {value: undefined, done: true};
-      }
-    }
+        return { value: undefined, done: true };
+      },
+    };
   }
 }
 

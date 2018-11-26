@@ -5,28 +5,26 @@ class NewsService {
   constructor(resource) {
     this.url = `${config.API_URL}${resource}`;
   }
-  
-  searchUrl = (params = {}) => {
-    return Object.entries(params).map(item => {
-      let [key, value] = item;
-      return { key, value };
-    }).reduce((accumulator, { key, value }) => `${accumulator}${key}=${value}`, `${this.url}?`);
-  };
+
+  searchUrl = (params = {}) => Object.entries(params).map((item) => {
+    const [key, value] = item;
+    return { key, value };
+  }).reduce((accumulator, { key, value }) => `${accumulator}${key}=${value}`, `${this.url}?`);
 
   async create(model) {
-    return await http.post(this.url, model);
-  } 
+    return http.post(this.url, model);
+  }
 
   async read(filter) {
-    return await http.get(this.searchUrl(filter));
+    return http.get(this.searchUrl(filter));
   }
 
   async update(id, model) {
-    return await http.put(`${this.url}/${id}`, model);
+    return http.put(`${this.url}/${id}`, model);
   }
 
   async del(id) {
-    return await http.del(`${this.url}/${id}`);
+    return http.del(`${this.url}/${id}`);
   }
 }
 
