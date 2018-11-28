@@ -70,7 +70,6 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['build']),
     new HtmlWebpackPlugin({
-      title: 'News',
       template: 'index.html',
       favicon: 'favicon.ico',
     }),
