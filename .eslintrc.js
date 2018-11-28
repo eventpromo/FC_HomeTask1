@@ -2,7 +2,7 @@ module.exports = {
     "extends": "airbnb-base",
     "rules": {
         "indent": ["error", 2],
-        "linebreak-style": ["error", "windows"],
+        "linebreak-style": 0,
     },
     "env": {
         "es6": true,
