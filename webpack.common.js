@@ -14,7 +14,6 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/build'),
     filename: '[name].js',
-    publicPath: '/',
   },
   module: {
     rules: [
@@ -46,14 +45,20 @@ module.exports = {
         ],
       },
       {
-        test: /\.(bmp|gif|jpe?g|png|eot|woff|ttf|svg|woff2)$/,
+        test: /\.(bmp|gif|jpe?g|png|eot|woff|ttf|svg|woff2|ico)$/,
         use: [{
           loader: 'url-loader',
           options: {
             limit: 100,
-            name: 'media/[name].[hash:8].[ext]',
+            name: 'img/[name].[hash:8].[ext]',
           },
         }],
+      },
+      {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader',
+        },
       },
     ],
   },
@@ -67,6 +72,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'News',
       template: 'index.html',
+      favicon: 'favicon.ico',
     }),
   ],
 };
