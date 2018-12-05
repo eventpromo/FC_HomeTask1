@@ -1,15 +1,16 @@
 import NewsItem from './NewsItem';
 import '../../styles/news.scss';
+import singletonDecorator from '../decorators/singletonDecorator';
 
 class NewsList extends HTMLElement {
   static get observedAttributes() {
     return ['items'];
   }
 
-  constructor({ articles = [] }) {
+  constructor({ articles = [], className = '' }) {
     super();
     this.news = articles;
-    this.className = 'news-list';
+    this.className = `news-list ${className}`;
     this.render();
     this.currentIndex = 0;
   }
@@ -58,3 +59,7 @@ class NewsList extends HTMLElement {
 }
 
 export default NewsList;
+
+const NewsListSingleton = singletonDecorator(NewsList);
+
+export { NewsListSingleton };

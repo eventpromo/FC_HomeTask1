@@ -1,27 +1,22 @@
 import newsService from './services/QueryNewsService';
+import { NewsFilterSingleton } from './components/NewsFilter';
+import { NewsListSingleton } from './components/NewsList';
+import NewsItem from './components/NewsItem';
 import '../styles/main.scss';
+
+customElements.define('news-filter', NewsFilterSingleton);
+customElements.define('news-list', NewsListSingleton);
+customElements.define('news-item', NewsItem);
 
 document.addEventListener('DOMContentLoaded', () => {
   const mainElement = document.querySelector('main');
-  const searchElement = document.querySelector('#news-query');
+  mainElement.appendChild(new NewsFilterSingleton({ className: 'main__item' }));
+  mainElement.appendChild(new NewsListSingleton({ className: 'main__item' }));
 
-  searchElement.addEventListener('change', async (ev) => {
-    let listElement = document.querySelector('news-list');
-    if (!listElement) {
-      const NewsList = (await import('./components/NewsList')).default;
-      const NewsItem = (await import('./components/NewsItem')).default;
-
-      customElements.define('news-list', NewsList);
-      customElements.define('news-item', NewsItem);
-
-      listElement = new NewsList({});
-      listElement.className += ' main__item';
-      mainElement.appendChild(listElement);
-    }
-
+  new NewsFilterSingleton().addEventListener('change', async (ev) => {
     if (ev.target.value) {
       const data = await newsService.read(ev.target.value);
-      listElement.items = data.articles;
+      new NewsListSingleton().items = data.articles;
     }
   });
 });
