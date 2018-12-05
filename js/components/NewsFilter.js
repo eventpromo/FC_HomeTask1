@@ -1,7 +1,7 @@
+import Component from './Component';
+import Dispatcher from '../utils/Dispatcher';
 
-import singletonDecorator from '../decorators/singletonDecorator';
-
-class NewsFilter extends HTMLElement {
+class NewsFilter extends Component {
   static get observedAttributes() {
     return ['onchange'];
   }
@@ -22,6 +22,7 @@ class NewsFilter extends HTMLElement {
   onChange(onchange) {
     return (ev) => {
       onchange(ev);
+      new Dispatcher().dispatch('getNews', ev.target.value);
       this.dispatchEvent(new CustomEvent('change', {
         detail: {
           ...ev,
@@ -59,7 +60,3 @@ class NewsFilter extends HTMLElement {
 }
 
 export default NewsFilter;
-
-const NewsFilterSingleton = singletonDecorator(NewsFilter);
-
-export { NewsFilterSingleton };

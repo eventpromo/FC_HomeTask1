@@ -1,4 +1,6 @@
-class NewsItem extends HTMLElement {
+import Component from './Component';
+
+class NewsItem extends Component {
   constructor({ title, description, urlToImage }) {
     super();
 

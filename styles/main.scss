@@ -3,7 +3,7 @@
   flex-flow: column nowrap;
 }
 
-main {
+.main, main {
   padding: 20px;
   display: flex;
   flex-grow: 1;

@@ -1,8 +1,8 @@
 import NewsItem from './NewsItem';
+import Component from './Component';
 import '../../styles/news.scss';
-import singletonDecorator from '../decorators/singletonDecorator';
 
-class NewsList extends HTMLElement {
+class NewsList extends Component {
   static get observedAttributes() {
     return ['items'];
   }
@@ -59,7 +59,3 @@ class NewsList extends HTMLElement {
 }
 
 export default NewsList;
-
-const NewsListSingleton = singletonDecorator(NewsList);
-
-export { NewsListSingleton };
