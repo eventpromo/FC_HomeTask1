@@ -14,8 +14,8 @@ class Observer {
     this.subscribers = this.subscribers.filter(item => item === subscriber);
   }
 
-  publish(data) {
-    this.subscribers.forEach(subscriber => subscriber(data));
+  publish(...params) {
+    this.subscribers.forEach(subscriber => subscriber(...params));
   }
 }
 

@@ -7,11 +7,11 @@ class Store extends Observer {
     this.state = state;
   }
 
-  setState(state) {
-    this.state = {
-      ...this.state,
-      ...state,
-    };
+  listen = (action) => {
+    if (!action.reducer) {
+      return;
+    }
+    this.state = action.reducer(this.state, action.data);
     this.publish(this.state);
   }
 }

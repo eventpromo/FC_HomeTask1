@@ -1,5 +1,6 @@
 import Component from './Component';
 import Dispatcher from '../utils/Dispatcher';
+import * as actions from '../actions';
 
 class NewsFilter extends Component {
   static get observedAttributes() {
@@ -22,7 +23,7 @@ class NewsFilter extends Component {
   onChange(onchange) {
     return (ev) => {
       onchange(ev);
-      new Dispatcher().dispatch('getNews', ev.target.value);
+      new Dispatcher().dispatch(actions.getNews, ev.target.value);
       this.dispatchEvent(new CustomEvent('change', {
         detail: {
           ...ev,

@@ -3,7 +3,6 @@ import NewsFilter from './NewsFilter';
 import NewsList from './NewsList';
 import singletonDecorator from '../decorators/singletonDecorator';
 
-
 class App extends Container {
   constructor({ className }) {
     super();

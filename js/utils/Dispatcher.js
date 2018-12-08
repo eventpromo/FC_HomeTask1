@@ -1,15 +1,12 @@
+import Observer from './Observer';
 import singletonDecorator from '../decorators/singletonDecorator';
-import getNews from '../actions/getNews';
-import updateListNews from '../actions/updateListNews';
 
-class Dispatcher {
-  constructor() {
-    this.getNews = getNews;
-    this.updateListNews = updateListNews;
-  }
-
+class Dispatcher extends Observer {
   dispatch(action, ...params) {
-    this[action](...params);
+    const objectAction = action(...params);
+    if (typeof objectAction === 'object') {
+      this.publish(objectAction);
+    }
   }
 }
 
