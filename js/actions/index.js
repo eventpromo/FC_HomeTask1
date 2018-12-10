@@ -1,22 +1,12 @@
 import newsService from '../services/QueryNewsService';
 import Dispatcher from '../utils/Dispatcher';
-import updateListNews from '../reducers/updateListNews';
-import setQuery from '../reducers/setQuery';
 
 export const requestNews = query => ({
-  type: 'REQUEST_NEWS',
-  data: {
-    query,
-  },
-  reducer: setQuery,
+  query,
 });
 
 export const receiveNews = articles => ({
-  type: 'RECEIVE_NEWS',
-  data: {
-    articles,
-  },
-  reducer: updateListNews,
+  articles,
 });
 
 export const getNews = (query) => {

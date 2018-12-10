@@ -1,9 +1,14 @@
 import Store from './Store';
 import Dispatcher from './Dispatcher';
+import * as handlers from '../handlers';
+import * as actions from '../actions';
 
 const store = new Store({
   articles: [],
-});
+}, new Map([
+  [actions.requestNews, handlers.setQuery],
+  [actions.receiveNews, handlers.updateListNews],
+]));
 
 new Dispatcher().addSubscriber(store.listen);
 
