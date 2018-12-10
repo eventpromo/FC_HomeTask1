@@ -8,9 +8,12 @@ class Store extends Observer {
     this.handlers = handlers;
   }
 
-  listen = (action, ...params) => {
-    const handler = this.handlers.get(action);
-    this.state = handler(this.state, ...params);
+  listen = (action, data) => {
+    const handler = this.handlers[action];
+    if (!handler) {
+      return;
+    }
+    this.state = handler(this.state, data);
     this.publish(this.state);
   }
 }

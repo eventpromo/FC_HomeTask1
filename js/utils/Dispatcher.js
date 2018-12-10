@@ -3,7 +3,10 @@ import singletonDecorator from '../decorators/singletonDecorator';
 
 class Dispatcher extends Observer {
   dispatch(action, ...params) {
-    this.publish(action, ...params);
+    const result = action(...params);
+    if (result) {
+      this.publish(action.name, result);
+    }
   }
 }
 

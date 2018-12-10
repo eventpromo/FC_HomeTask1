@@ -5,10 +5,10 @@ import * as actions from '../actions';
 
 const store = new Store({
   articles: [],
-}, new Map([
-  [actions.requestNews, handlers.setQuery],
-  [actions.receiveNews, handlers.updateListNews],
-]));
+}, {
+  [actions.requestNews.name]: handlers.setQuery,
+  [actions.receiveNews.name]: handlers.updateListNews,
+});
 
 new Dispatcher().addSubscriber(store.listen);
 
