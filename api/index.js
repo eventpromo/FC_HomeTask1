@@ -3,6 +3,7 @@ const createError = require('http-errors');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const config = require('config/config.js');
 const apiRouter = require('./routes/api');
 
 const app = express();
@@ -13,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: 'http://localhost:8080/',
+  origin: config.cors,
   credentials: true,
 };
 app.use(cors(corsOptions));
