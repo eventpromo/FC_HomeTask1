@@ -1,7 +1,7 @@
 const { ObjectID } = require('mongodb').ObjectID;
-const client = require('db/mongoClient');
+const client = require('../db/mongoClient');
 
-class Service {
+class CrudService {
   constructor(collection) {
     this.client = client;
     this.collection = collection;
@@ -37,15 +37,20 @@ class Service {
     return this.run((collection, callback) => collection.find(query, callback));
   }
 
+  getById(id) {
+    const query = CrudService.idQuery(id);
+    return this.read(query);
+  }
+
   update(id, model) {
-    const query = Service.idQuery(id);
+    const query = CrudService.idQuery(id);
     return this.run((collection, callback) => collection.update(query, model, callback));
   }
 
   delete(id) {
-    const query = Service.idQuery(id);
+    const query = CrudService.idQuery(id);
     return this.run((collection, callback) => collection.remove(query, callback));
   }
 }
 
-module.export = Service;
+module.exports = CrudService;

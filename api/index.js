@@ -3,7 +3,7 @@ const createError = require('http-errors');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const config = require('config/config.js');
+const config = require('./config/config.js');
 const apiRouter = require('./routes/api');
 
 const app = express();
