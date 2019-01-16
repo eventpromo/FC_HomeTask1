@@ -1,5 +1,6 @@
 const { ObjectID } = require('mongodb').ObjectID;
 const client = require('../db/mongoClient');
+const config = require('../config/config');
 
 class CrudService {
   constructor(collection) {
@@ -13,17 +14,18 @@ class CrudService {
 
   run(operation) {
     const promise = new Promise((resolve, reject) => {
-      this.client.connect((connectionError, db) => {
+      this.client.connect((connectionError, server) => {
         if (connectionError) {
           reject(connectionError);
         }
-        operation(db.collection(this.collection, (operationError, result) => {
+        operation(server.db(config.mongo_db).collection(this.collection), (operationError, result) => {
           if (operationError) {
             reject(operationError);
           } else {
             resolve(result);
           }
-        }));
+          this.client.close();
+        });
       });
     });
     return promise;
@@ -33,13 +35,13 @@ class CrudService {
     return this.run((collection, callback) => collection.insert(model, callback));
   }
 
-  read(query) {
-    return this.run((collection, callback) => collection.find(query, callback));
+  get(query) {
+    return this.run((collection, callback) => collection.find(query).toArray(callback));
   }
 
   getById(id) {
     const query = CrudService.idQuery(id);
-    return this.read(query);
+    return this.run((collection, callback) => collection.findOne(query, callback));
   }
 
   update(id, model) {
