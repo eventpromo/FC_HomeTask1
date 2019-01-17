@@ -29,8 +29,6 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  res.locals.message = err.message;
-  res.locals.error = err;
   next(createError(500, err.message));
 });
 

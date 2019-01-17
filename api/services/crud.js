@@ -14,17 +14,24 @@ class CrudService {
 
   run(operation) {
     const promise = new Promise((resolve, reject) => {
-      this.client.connect((connectionError, server) => {
+      this.client.connect((connectionError, mongoClient) => {
         if (connectionError) {
           reject(connectionError);
         }
-        operation(server.db(config.mongo_db).collection(this.collection), (operationError, result) => {
+        const db = mongoClient.db(config.mongo_db);
+        const collection = db.collection(this.collection);
+        operation(collection, (operationError, result) => {
           if (operationError) {
             reject(operationError);
           } else {
-            resolve(result);
+            const res = result.ops;
+            if (res && res.length) {
+              resolve(res[0]);
+            } else {
+              resolve(result);
+            }
           }
-          this.client.close();
+          // this.client.close();
         });
       });
     });
@@ -32,7 +39,7 @@ class CrudService {
   }
 
   create(model) {
-    return this.run((collection, callback) => collection.insert(model, callback));
+    return this.run((collection, callback) => collection.insertOne(model, callback));
   }
 
   get(query) {
