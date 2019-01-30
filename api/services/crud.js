@@ -1,64 +1,37 @@
-const { ObjectID } = require('mongodb').ObjectID;
-const client = require('../db/mongoClient');
+const mongoose = require('mongoose');
 const config = require('../config/config');
 
 class CrudService {
-  constructor(collection) {
-    this.client = client;
-    this.collection = collection;
-  }
-
-  static idQuery(id) {
-    return { _id: new ObjectID(id) };
+  constructor(entity) {
+    this.entity = entity;
   }
 
   run(operation) {
-    const promise = new Promise((resolve, reject) => {
-      this.client.connect((connectionError, mongoClient) => {
-        if (connectionError) {
-          reject(connectionError);
-        }
-        const db = mongoClient.db(config.mongo_db);
-        const collection = db.collection(this.collection);
-        operation(collection, (operationError, result) => {
-          if (operationError) {
-            reject(operationError);
-          } else {
-            const res = result.ops;
-            if (res && res.length) {
-              resolve(res[0]);
-            } else {
-              resolve(result);
-            }
-          }
-          // this.client.close();
-        });
-      });
+    mongoose.connect(`${config.mongo_url}${config.mongo_db}`);
+    const db = mongoose.connection;
+    return operation(this.entity).finally(() => {
+      db.disconnect();
     });
-    return promise;
   }
 
   create(model) {
-    return this.run((collection, callback) => collection.insertOne(model, callback));
+    return this.run(Entity => new Entity(model).save());
   }
 
   get(query) {
-    return this.run((collection, callback) => collection.find(query).toArray(callback));
+    return this.run(Entity => Entity.find(query).exec());
   }
 
   getById(id) {
-    const query = CrudService.idQuery(id);
-    return this.run((collection, callback) => collection.findOne(query, callback));
+    return this.run(Entity => Entity.findById(id));
   }
 
   update(id, model) {
-    const query = CrudService.idQuery(id);
-    return this.run((collection, callback) => collection.update(query, model, callback));
+    return this.run(Entity => Entity.findByIdAndUpdate(id, model));
   }
 
   delete(id) {
-    const query = CrudService.idQuery(id);
-    return this.run((collection, callback) => collection.remove(query, callback));
+    return this.run(Entity => Entity.findByIdAndRemove(id));
   }
 }
 
