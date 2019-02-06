@@ -1,9 +1,9 @@
-const NewsService = require('../services/news');
+const News = require('../models/news');
 const CrudController = require('./crud');
 
 class NewsController extends CrudController {
   constructor() {
-    super(new NewsService(), (request) => {
+    super(News, (request) => {
       const {
         title,
         subTitle,

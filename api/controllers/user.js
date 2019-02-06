@@ -1,20 +1,18 @@
-const UserService = require('../services/user');
+const User = require('../models/user');
 const CrudController = require('./crud');
 
 class UserController extends CrudController {
   constructor() {
-    super(new UserService(), (request) => {
+    super(User, (request) => {
       const {
         email,
         password,
-        firstName,
-        lastName,
+        name,
       } = request.body;
       return {
         email,
         password,
-        firstName,
-        lastName,
+        name,
       };
     });
   }
