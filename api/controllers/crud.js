@@ -1,5 +1,3 @@
-const mongoose = require('mongoose');
-const config = require('../config/config');
 
 class CrudController {
   constructor(entity, binder = null) {
@@ -12,64 +10,39 @@ class CrudController {
     }
   }
 
-  async run(operation) {
-    mongoose.connect(`${config.mongo_url}${config.mongo_db}`);
-    const db = mongoose.connection;
-    return operation(this.entity).finally(() => {
-      db.disconnect();
-    });
+  async run(request, response, operation) {
+    try {
+      const result = await operation(this.entity);
+      response.status(200).send(result);
+    } catch (e) {
+      response.status(500).send(e);
+    }
   }
 
   async create(request, response) {
     const model = this.bind(request);
-    try {
-      const item = this.run(Entity => new Entity(model).save());
-      response.status(200).send(item);
-    } catch (e) {
-      response.status(500).send(e);
-    }
+    await this.run(request, response, Entity => new Entity(model).save());
   }
 
   async update(request, response) {
     const { id } = request.params;
     const model = this.bind(request);
-    try {
-      const updatedModel = this.run(Entity => Entity.findByIdAndUpdate(id, model));
-      response.status(200).send(updatedModel);
-    } catch (e) {
-      response.status(500).send(e);
-    }
+    await this.run(request, response, Entity => Entity.findByIdAndUpdate(id, model).exec());
   }
 
   async get(request, response) {
-    // const filter = { text: { search: request.query } };
     const query = { };
-    try {
-      const items = await this.run(Entity => Entity.find(query).exec());
-      response.status(200).send(items);
-    } catch (e) {
-      response.status(500).send(e);
-    }
+    await this.run(request, response, Entity => Entity.find(query).exec());
   }
 
   async getById(request, response) {
     const { id } = request.params;
-    try {
-      const item = await this.run(Entity => Entity.findById(id));
-      response.status(200).send(item);
-    } catch (e) {
-      response.status(500).send(e);
-    }
+    await this.run(request, response, Entity => Entity.findById(id).exec());
   }
 
   async delete(request, response) {
     const { id } = request.params;
-    try {
-      await this.run(Entity => Entity.findByIdAndRemove(id));
-      response.status(200).send();
-    } catch (e) {
-      response.status(500).send(e);
-    }
+    await this.run(request, response, Entity => Entity.findByIdAndRemove(id).exec());
   }
 }
 

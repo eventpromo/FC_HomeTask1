@@ -3,12 +3,15 @@ const createError = require('http-errors');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 const config = require('./config/config.js');
 const passport = require('./middlewares/passport');
 const apiRouter = require('./routes/api');
 const rootRouter = require('./routes/root');
 
 const app = express();
+
+mongoose.connect(`${config.mongo_url}${config.mongo_db}`, { useNewUrlParser: true });
 
 app.use(logger('dev'));
 app.use(cors({
