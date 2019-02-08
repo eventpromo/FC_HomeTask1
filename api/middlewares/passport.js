@@ -3,11 +3,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt');
 const User = require('../models/user');
-
-const opts = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: 'secret',
-};
+const jwtUtils = require('../utils/jwt');
 
 passport.use(new LocalStrategy({
   usernameField: 'email',
@@ -25,8 +21,13 @@ passport.use(new LocalStrategy({
   });
 }));
 
+const opts = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: jwtUtils.jwtsecret,
+};
+
 passport.use(new JwtStrategy(opts, (jwt, done) => {
-  User.findOne({ id: jwt.sub }, (err, user) => {
+  User.findOne({ email: jwt.email }, (err, user) => {
     if (err) {
       return done(err, false);
     }

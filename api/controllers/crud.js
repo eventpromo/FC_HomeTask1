@@ -27,7 +27,11 @@ class CrudController {
   async update(request, response) {
     const { id } = request.params;
     const model = this.bind(request);
-    await this.run(request, response, Entity => Entity.findByIdAndUpdate(id, model).exec());
+    await this.run(request, response,
+      Entity => Entity
+        .findByIdAndUpdate(id, model)
+        .exec()
+        .then(() => Entity.findById(id).exec()));
   }
 
   async get(request, response) {

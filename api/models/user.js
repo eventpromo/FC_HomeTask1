@@ -25,7 +25,6 @@ const UserSchema = new Schema({
 
 UserSchema.methods = {
   encryptPassword(plainPassword) {
-    this.salt = this.generateSalt();
     return crypto.createHmac('sha1', this.salt).update(plainPassword).digest('hex');
   },
   verify(plainPassword) {
@@ -35,13 +34,9 @@ UserSchema.methods = {
     return `${Math.round((new Date().valueOf() * Math.random()))}`;
   },
 };
-UserSchema.setters = {
-  password(password) {
-    this.passwordHash = this.encryptPassword(password);
-  },
-};
-UserSchema.indexes = [
-  [{ email: 1 }, { unique: true }],
-];
+UserSchema.virtual('password').set(function setPassword(password) {
+  this.salt = this.generateSalt();
+  this.passwordHash = this.encryptPassword(password);
+});
 
 module.exports = mongoose.model('User', UserSchema);
