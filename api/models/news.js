@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
+const { Types } = Schema;
+
 
 const NewsSchema = new Schema({
   title: {
@@ -23,7 +25,7 @@ const NewsSchema = new Schema({
     required: true,
   },
   author: {
-    type: String,
+    type: Types.ObjectId,
   },
 });
 

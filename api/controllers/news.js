@@ -8,7 +8,6 @@ class NewsController extends CrudController {
         title,
         subTitle,
         description,
-        author,
         date,
         image,
       } = request.body;
@@ -16,11 +15,27 @@ class NewsController extends CrudController {
         title,
         subTitle,
         description,
-        author,
+        author: request.user.id,
         image,
         date: new Date(date),
       };
     });
+  }
+
+  async update(request, response) {
+    const { id } = request.params;
+    const { body } = request;
+    const model = {
+      title: body.title,
+      subTitle: body.subTitle,
+      description: body.description,
+      image: body.image,
+    };
+    await this.run(request, response,
+      Entity => Entity
+        .findByIdAndUpdate(id, model)
+        .exec()
+        .then(() => Entity.findById(id).exec()));
   }
 }
 
