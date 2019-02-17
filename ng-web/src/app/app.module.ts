@@ -1,7 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
+import { AppMaterialModule } from './app-material.module';
+
 import { AppComponent } from './app.component';
 import { NewsListComponent } from './components/news-list/news-list.component';
 import { NewsItemComponent } from './components/news-item/news-item.component';
@@ -28,11 +32,16 @@ import { NewsViewComponent } from './pages/news-view/news-view.component';
     NewsMoreButtonComponent,
     NewsComponent,
     NewsEditComponent,
-    NewsViewComponent
+    NewsViewComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    AppMaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

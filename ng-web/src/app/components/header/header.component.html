@@ -1,3 +1,13 @@
-<header>
-  Header
+<header >
+  <mat-toolbar color="primary" class="header-toolbar">
+    <mat-icon>list_alt</mat-icon>
+    <span>News</span>
+    <button mat-icon-button [mat-menu-trigger-for]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-menu x-position="before" #menu>
+    <button mat-menu-item>Option 1</button>
+    <button mat-menu-item>Option 2</button>
+  </mat-menu>
 </header>
