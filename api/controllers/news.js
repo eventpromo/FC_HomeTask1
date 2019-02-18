@@ -22,6 +22,22 @@ class NewsController extends CrudController {
     });
   }
 
+  async getById(request, response) {
+    const { id } = request.params;
+    await this.run(request, response, Entity => Entity.aggregate([
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'author',
+          foreignField: '_id',
+          as: 'authors',
+        },
+      },
+      { $unwind: '$authors' },
+      // { $match: { ...query } },
+    ]).findById(id).exec());
+  }
+
   async update(request, response) {
     const { id } = request.params;
     const { body } = request;

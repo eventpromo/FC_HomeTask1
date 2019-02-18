@@ -35,7 +35,7 @@ class CrudController {
   }
 
   async get(request, response) {
-    const query = { };
+    const query = {};
     await this.run(request, response, Entity => Entity.find(query).exec());
   }
 

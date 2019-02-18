@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Input, Component, OnInit } from '@angular/core';
+import NewsItem from '../../models/NewsItem';
 
 @Component({
   selector: 'app-news-list',
@@ -6,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./news-list.component.scss']
 })
 export class NewsListComponent implements OnInit {
-
-  constructor() { }
+  public items: Array<NewsItem> = [];
 
   ngOnInit() {
   }

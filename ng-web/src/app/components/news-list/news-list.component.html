@@ -1,3 +1,5 @@
-<p>
-  news-list works!
-</p>
+<mat-grid-list cols="4" rowHeight="200px">
+  <mat-grid-tile *ngFor="let item of items">
+    <news-item [model]="item" />
+  </mat-grid-tile>
+</mat-grid-list>
