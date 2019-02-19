@@ -1,4 +1,8 @@
-import { config } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { config } from '../config';
 import RepositoryInterface from './RepositoryInterface';
 import NewsItem from '../models/NewsItem';
 
@@ -7,24 +11,24 @@ export class NewsRepository implements RepositoryInterface<NewsItem> {
 
   }
 
-  get(): Array<NewsItem> {
-    return [new NewsItem()];
+  get(params): Observable<NewsItem[]> {
+    return null;
   }
 
-  getById(id: string): NewsItem {
-    return new NewsItem();
+  getById(id: string): Observable<NewsItem> {
+    return null;
   }
 
-  create(model: NewsItem): NewsItem {
-    return new NewsItem();
+  create(model: NewsItem): Observable<NewsItem> {
+    return null;
   }
 
-  update(id: string, model: NewsItem): NewsItem {
-    return new NewsItem();
+  update(id: string, model: NewsItem): Observable<NewsItem> {
+    return null;
   }
 
-  delete(id: string): NewsItem {
-    return new NewsItem();
+  delete(id: string): Observable<NewsItem> {
+    return null;
   }
 
 }

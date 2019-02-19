@@ -1,4 +1,4 @@
-import { Input, Component, OnInit } from '@angular/core';
+import { Input, Component, OnChanges, SimpleChange } from '@angular/core';
 import NewsItem from '../../models/NewsItem';
 
 @Component({
@@ -6,12 +6,14 @@ import NewsItem from '../../models/NewsItem';
   templateUrl: './news-item.component.html',
   styleUrls: ['./news-item.component.scss']
 })
-export class NewsItemComponent implements OnInit {
+export class NewsItemComponent implements OnChanges {
 
   @Input() model: NewsItem;
 
-  ngOnInit() {
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+    let log: string[] = [];
+    for (let propName in changes) {
 
+    }
   }
-
 }

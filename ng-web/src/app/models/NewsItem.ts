@@ -5,6 +5,7 @@ export default class NewsItem {
   description: String;
   date: Date;
   author: String;
+  isExternal: Boolean;
 
   constructor() {
   }

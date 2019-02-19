@@ -1,11 +1,13 @@
+import { Observable } from 'rxjs';
+
 export default interface RepositoryInterface<T> {
-  get(): Array<T>;
+  get(params: any): Observable<T[]>;
 
-  getById(id: string): T;
+  getById(id: String): Observable<T>;
 
-  create(model: T): T;
+  create(model: T): Observable<T>;
 
-  update(id: string, model: T): T;
+  update(id: String, model: T): Observable<T>;
 
-  delete(id: string): T;
+  delete(id: String): Observable<T>;
 }
