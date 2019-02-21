@@ -7,7 +7,7 @@ import NewsItem from '../../models/NewsItem';
   styleUrls: ['./news-list.component.scss']
 })
 export class NewsListComponent implements OnInit {
-  public items: Array<NewsItem> = [];
+  @Input() public items: Array<NewsItem> = [];
 
   ngOnInit() {
   }

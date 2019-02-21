@@ -7,7 +7,6 @@ import NewsItem from '../../models/NewsItem';
   styleUrls: ['./news-item.component.scss']
 })
 export class NewsItemComponent implements OnChanges {
-
   @Input() model: NewsItem;
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
