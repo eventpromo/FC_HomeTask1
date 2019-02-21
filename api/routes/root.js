@@ -8,4 +8,8 @@ router.post('/login', passport.authenticate('local', { session: false }), (req, 
   accountController.login(req, res);
 });
 
+router.post('/register', (req, res) => {
+  accountController.register(req, res);
+});
+
 module.exports = router;
