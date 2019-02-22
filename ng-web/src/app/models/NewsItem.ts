@@ -1,11 +1,11 @@
 export default class NewsItem {
-  title: String;
-  subTitle: String;
-  image: String;
-  description: String;
+  title: string;
+  subTitle: string;
+  image: string;
+  description: string;
   date: Date;
-  author: String;
-  isExternal: Boolean;
+  author: string;
+  externalUrl: string;
 
   constructor() {
   }

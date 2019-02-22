@@ -8,15 +8,14 @@ import NewsItem from '../models/NewsItem';
 export default class NewsOrgRepository implements RepositoryInterface<NewsItem> {
   private headers: HttpHeaders;
   private options: any;
-  private url: String;
+  private url: string;
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': config.NEWS_ORG_API_KEY
+      'Authorization': config.NEWS_ORG_API_KEY,
     });
     this.options = { headers: this.headers }
-    this.url = `${config.NEWS_ORG_API_KEY}everything`;
+    this.url = `${config.NEWS_ORG_API_URL}everything`;
   }
 
   searchUrl = (params = {}) => Object.entries(params).map((item) => {
@@ -26,15 +25,15 @@ export default class NewsOrgRepository implements RepositoryInterface<NewsItem> 
 
   get(params): Observable<NewsItem[]> {
     return this.http.get<NewsItem[]>(this.searchUrl(params), this.options).pipe(map((data: any) => {
-      return data.map(item => {
+      return data.articles.map(item => {
         const news = new NewsItem();
         news.author = item.author;
         news.date = item.date;
         news.description = item.description;
-        news.image = item.image;
+        news.image = item.urlToImage;
         news.subTitle = item.subTitle;
         news.title = item.title;
-        news.isExternal = true;
+        news.externalUrl = item.url;
         return news;
       });
     }));

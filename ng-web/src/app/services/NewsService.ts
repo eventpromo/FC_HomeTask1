@@ -1,15 +1,16 @@
 import RepositoryInterface from '../repositories/RepositoryInterface';
-import NewsOrgRepository from '../repositories/NewsOrgRepository';
+import RepositoryFactory from '../repositories/RepositoryFactory';
 import { HttpClient } from '@angular/common/http';
 import NewsItem from '../models/NewsItem';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 class NewsService {
-  private repository: RepositoryInterface<NewsItem>
+  constructor(private http: HttpClient) {
+  }
 
-  constructor(http: HttpClient) {
-    this.repository = new NewsOrgRepository(http);
+  get repository(): RepositoryInterface<NewsItem> {
+    return RepositoryFactory.create(this.http);
   }
 
   create(model: NewsItem) {
@@ -20,15 +21,15 @@ class NewsService {
     return this.repository.get(filter)
   }
 
-  getById(id: String) {
+  getById(id: string) {
     return this.repository.getById(id)
   }
 
-  update(id: String, model: NewsItem) {
+  update(id: string, model: NewsItem) {
     return this.repository.update(id, model)
   }
 
-  delete(id: String) {
+  delete(id: string) {
     return this.repository.delete(id)
   }
 }

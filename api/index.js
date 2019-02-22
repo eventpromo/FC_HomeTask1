@@ -14,10 +14,7 @@ const app = express();
 mongoose.connect(`${config.mongo_url}${config.mongo_db}`, { useNewUrlParser: true });
 
 app.use(logger('dev'));
-app.use(cors({
-  origin: config.cors,
-  credentials: true,
-}));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

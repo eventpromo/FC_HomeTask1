@@ -1,7 +1,7 @@
 class User {
-  id: String;
-  email: String;
-  name: String;
+  id: string;
+  email: string;
+  name: string;
 
   constructor() {
   }

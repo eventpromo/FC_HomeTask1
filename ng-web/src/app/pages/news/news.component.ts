@@ -15,10 +15,19 @@ export class NewsComponent implements OnInit {
 
   }
 
+  getNews() {
+    this.service.get({q: 'test'})
+    .subscribe((data: NewsItem[]) => {
+      this.items = data;
+    }, error => console.log(error));
+  }
+
   ngOnInit() {
-    this.service.get({})
-      .subscribe((data: NewsItem[]) => {
-        this.items = data;
-      }, error => console.log(error));
+    this.getNews();
+  }
+
+  onControlPanelChanged(source) {
+    localStorage.setItem('source', source.id);
+    this.getNews();
   }
 }

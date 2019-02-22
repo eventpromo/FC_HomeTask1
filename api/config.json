@@ -1,14 +1,12 @@
 {
   "development": {
     "config_id": "development",
-    "cors": "http://localhost:8080/",
     "node_port": 3000,
     "mongo_url": "mongodb://localhost:27017/",
     "mongo_db": "frontcamp"
   },  
   "production": {    
     "config_id": "production",
-    "cors": "http://localhost:8080/",
     "node_port": 8080,
     "mongo_url": "my-app-db-prod"
   }
