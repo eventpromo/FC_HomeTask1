@@ -24,7 +24,11 @@ export default class NewsOrgRepository implements RepositoryInterface<NewsItem> 
   }).reduce((accumulator, { key, value }) => `${accumulator}${key}=${value}`, `${this.url}?`);
 
   get(params): Observable<NewsItem[]> {
-    return this.http.get<NewsItem[]>(this.searchUrl(params), this.options).pipe(map((data: any) => {
+    if (!params.q) {
+      return new Observable<NewsItem[]>(null);
+    }
+    const url = this.searchUrl(params);
+    return this.http.get<NewsItem[]>(url, this.options).pipe(map((data: any) => {
       return data.articles.map(item => {
         const news = new NewsItem();
         news.author = item.author;

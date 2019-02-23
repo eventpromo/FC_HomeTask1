@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewsControlPanelComponent } from './news-control-panel.component';
+import { NewsControlPanelComponent } from './news-panel.component';
 
 describe('NewsControlPanelComponent', () => {
   let component: NewsControlPanelComponent;
@@ -8,9 +8,9 @@ describe('NewsControlPanelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewsControlPanelComponent ]
+      declarations: [NewsControlPanelComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

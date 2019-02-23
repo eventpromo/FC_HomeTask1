@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { config } from '../config';
 import RepositoryInterface from './RepositoryInterface';
@@ -12,11 +11,12 @@ export default class NewsRepository implements RepositoryInterface<NewsItem> {
   private url: string;
 
   constructor(private http: HttpClient) {
+    const token = localStorage.getItem('token') || '';
     this.headers = new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNzA0OGVmYTdjNGQ3YWVlOGY4MWM0NiIsIm5hbWUiOiJUZXN0IFRlc3QiLCJlbWFpbCI6InNlcmhpb0BnbWFpbC5jb20iLCJpYXQiOjE1NTA4NjI1NzV9.AJtz6iGHDH6WGcCfJZ6fj5uaeoCNwJ5RxId9RSVEzts',
+      'Authorization': `Bearer ${token}`,
     });
     this.options = { headers: this.headers }
-    this.url = `${config.MY_API_URL}news`;
+    this.url = `${config.MY_API_URL}api/news`;
   }
 
   get(params: any): Observable<NewsItem[]> {

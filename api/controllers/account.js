@@ -4,7 +4,9 @@ const User = require('../models/user');
 module.exports = {
   async login(request, response) {
     if (request.user) {
-      response.status(200).send(jwt.generate(request.user));
+      response.status(200).send({
+        token: jwt.generate(request.user),
+      });
     } else {
       response.status(400).send('Incorrect login or password');
     }
@@ -21,7 +23,9 @@ module.exports = {
         password,
         name,
       }).save();
-      response.status(200).send(jwt.generate(user));
+      response.status(200).send({
+        token: jwt.generate(user),
+      });
     } catch (e) {
       response.status(500).send(e);
     }

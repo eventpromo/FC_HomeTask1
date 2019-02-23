@@ -1,16 +1,15 @@
-<mat-card >
-  <mat-card-header>
-    <mat-card-title>{{model.title}}</mat-card-title>
-    <mat-card-subtitle>{{model.subTitle}}</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image src="{{model.image}}" />
-  <mat-card-content>
-    <p>
-      {{model.description}}
-    </p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>View</button>
-    <button *ngIf="canEdit" mat-button>Edit</button>
-  </mat-card-actions>
-</mat-card>
+<div class="news-item">
+  <div class="news-item__title">
+    {{model.title}}
+  </div>
+  <div class="news-item__img" [style.background-image]="sanitizeImg(model.image)">
+  </div>
+  <div class="news-item__body">
+    {{model.description}}
+  </div>
+  <div class="news-item__actions">
+    <a *ngIf="model.isInternal" mat-raised-button color="accent" [routerLink]="['news', model.id]">View</a>
+    <a *ngIf="model.isExternal" mat-raised-button color="accent" [href]="model.externalUrl">View</a>
+    <a *ngIf="canEdit(model)" mat-raised-button color="accent" [routerLink]="['news', model.id, 'edit']">Edit</a>
+  </div>
+</div>

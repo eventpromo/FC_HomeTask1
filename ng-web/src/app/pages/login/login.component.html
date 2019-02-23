@@ -1,0 +1,53 @@
+<div class="login-page">
+  <div class="login-spacer"></div>
+  <div class="login-container">
+    <div id="login-fab">
+      <i id="lock-icon" class="material-icons">lock</i>
+    </div>
+    <h2 class="card-heading">
+      User Login
+    </h2>
+    <form class="login-form" [formGroup]="userForm">
+      <mat-form-field>
+        <input id="name" formControlName="name" matInput placeholder="Name" required>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+          <div *ngIf="name.errors.required">
+            Name is required.
+          </div>
+        </div>
+      </mat-form-field>
+      <mat-form-field>
+        <input id="email" formControlName="email" matInput type="email" placeholder="Email" required>
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+          <div *ngIf="email.errors.required">
+            Email is required.
+          </div>
+          <div *ngIf="email.errors.email">
+            Email isn't email.
+          </div>
+        </div>
+      </mat-form-field>
+      <mat-form-field>
+        <input id="password" formControlName="password" matInput type="password" placeholder="Password" required
+          minlength="4">
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+          <div *ngIf="password.errors.required">
+            Password is required.
+          </div>
+          <div *ngIf="password.errors.minlength">
+            Password must be at least 4 characters long.
+          </div>
+        </div>
+      </mat-form-field>
+    </form>
+    <div class="buttons">
+      <div class="login">
+        <button mat-raised-button color="primary" (click)="onLoginClick()">Login</button>
+      </div>
+      <div class="register">
+        <button mat-raised-button color="primary" (click)="onRegisterClick()">Register</button>
+        <button mat-button color="primary">Forgot Password</button>
+      </div>
+    </div>
+  </div>
+</div>

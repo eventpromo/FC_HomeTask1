@@ -14,12 +14,15 @@ import { NewsItemComponent } from './components/news-item/news-item.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MainComponent } from './components/main/main.component';
-import { NewsControlPanelComponent } from './components/news-control-panel/news-control-panel.component';
+import { NewsControlPanelComponent } from './components/news-panel/news-panel.component';
 import { ButtonComponent } from './components/button/button.component';
 import { NewsMoreButtonComponent } from './components/news-more-button/news-more-button.component';
+import { LoginComponent } from './pages/login/login.component';
 import { NewsComponent } from './pages/news/news.component';
 import { NewsEditComponent } from './pages/news-edit/news-edit.component';
 import { NewsViewComponent } from './pages/news-view/news-view.component';
+
+import AuthService from './services/AuthService'
 
 @NgModule({
   declarations: [
@@ -35,6 +38,7 @@ import { NewsViewComponent } from './pages/news-view/news-view.component';
     NewsComponent,
     NewsEditComponent,
     NewsViewComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,7 @@ import { NewsViewComponent } from './pages/news-view/news-view.component';
     FlexLayoutModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

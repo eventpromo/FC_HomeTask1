@@ -1,0 +1,22 @@
+<form class="news-panel" fxFlexFill fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+  <mat-form-field fxFlex="1 1 150px">
+    <mat-select placeholder="Sources" (selectionChange)="onSourceChanged($event)" [(value)]="source" name="source"
+      [disabled]="!user">
+      <mat-option *ngFor="let source of sources" [value]="source">
+        {{source.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field fxFlex="1 1 auto">
+    <input type="text" matInput placeholder="Search" [(ngModel)]="query" name="query" (keyup)="onQueryChanged($event)">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  <section fxFlex="1 1 150px" fxFlexAlign="center center" class="news-panel__item_center">
+    <mat-slide-toggle [(ngModel)]="onlyMy" name="onlyMy" (toggleChange)="onOnlyMyChanged($event)" [disabled]="!user">
+      Only My
+    </mat-slide-toggle>
+  </section>
+  <section fxFlex="1 1 150px" fxFlexAlign="center end" class="news-panel__item_right">
+    <button mat-raised-button color="primary" [disabled]="!user" routerLink="/news/add">Add news</button>
+  </section>
+</form>

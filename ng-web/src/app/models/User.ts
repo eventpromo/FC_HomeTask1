@@ -1,8 +1,8 @@
 class User {
-  id: string;
+  id?: string;
   email: string;
   name: string;
-
-  constructor() {
-  }
+  password?: string;
 }
+
+export default User;
