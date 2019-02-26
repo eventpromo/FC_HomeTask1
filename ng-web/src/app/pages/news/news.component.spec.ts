@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import testModuleMetadata from '../../test.config';
+import AuthService from '../../services/AuthService';
 import { NewsComponent } from './news.component';
 
 describe('NewsComponent', () => {
@@ -7,8 +8,11 @@ describe('NewsComponent', () => {
   let fixture: ComponentFixture<NewsComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NewsComponent ]
+    TestBed.configureTestingModule({ 
+      ...testModuleMetadata,
+      providers: [
+        AuthService,
+      ], 
     })
     .compileComponents();
   }));

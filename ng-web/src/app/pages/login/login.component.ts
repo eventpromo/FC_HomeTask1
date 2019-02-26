@@ -15,14 +15,14 @@ export class LoginComponent implements OnInit {
 
   constructor(private service: AuthService, private router: Router) {
     this.userForm = new FormGroup({
-      'name': new FormControl('', [
+      name: new FormControl('', [
         Validators.required,
       ]),
-      'email': new FormControl('', [
+      email: new FormControl('', [
         Validators.required,
         Validators.email,
       ]),
-      'password': new FormControl('', [
+      password: new FormControl('', [
         Validators.required,
         Validators.minLength(4)
       ]),
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  redirect = (data) => {
-    this.router.navigate(['/news']);
+  redirect = () => {
+    this.router.navigateByUrl('/news');
   }
 }

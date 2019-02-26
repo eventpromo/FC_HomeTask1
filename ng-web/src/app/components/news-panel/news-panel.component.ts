@@ -10,7 +10,7 @@ import User from 'src/app/models/User';
   templateUrl: './news-panel.component.html',
   styleUrls: ['./news-panel.component.scss']
 })
-export class NewsControlPanelComponent implements OnInit, OnDestroy {
+export class NewsPanelComponent implements OnInit, OnDestroy {
   @Input() sourceId: Sources;
   @Output() onChanged = new EventEmitter();
 

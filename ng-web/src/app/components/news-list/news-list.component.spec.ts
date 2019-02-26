@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import testModuleMetadata from '../../test.config';
 import { NewsListComponent } from './news-list.component';
 
 describe('NewsListComponent', () => {
@@ -7,9 +7,7 @@ describe('NewsListComponent', () => {
   let fixture: ComponentFixture<NewsListComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NewsListComponent ]
-    })
+    TestBed.configureTestingModule(testModuleMetadata)
     .compileComponents();
   }));
 

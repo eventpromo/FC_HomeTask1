@@ -1,14 +1,11 @@
-import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './app-material.module';
 
-import { AppComponent } from './app.component';
 import { NewsListComponent } from './components/news-list/news-list.component';
 import { NewsItemComponent } from './components/news-item/news-item.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -22,34 +19,29 @@ import { NewsViewComponent } from './pages/news-view/news-view.component';
 
 import { CutPipe } from './pipes/cut'
 
-import AuthService from './services/AuthService'
-
-@NgModule({
-  declarations: [
-    AppComponent,
+export default {
+  declarations: <Array<any>>[
+    MainComponent,
     NewsListComponent,
     NewsItemComponent,
     HeaderComponent,
     FooterComponent,
-    MainComponent,
     NewsPanelComponent,
+    NewsPanelComponent,
+    LoginComponent,
     NewsComponent,
     NewsEditComponent,
     NewsViewComponent,
-    LoginComponent,
     CutPipe,
   ],
-  imports: [
-    BrowserModule,
+  imports: [ 
     AppRoutingModule,
-    BrowserAnimationsModule,
     AppMaterialModule,
+    FlexLayoutModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
-    HttpClientModule
+    BrowserModule,
+    BrowserAnimationsModule,
   ],
-  providers: [AuthService],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
+}

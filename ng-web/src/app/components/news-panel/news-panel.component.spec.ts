@@ -1,20 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import testModuleMetadata from '../../test.config';
+import AuthService from '../../services/AuthService';
+import { NewsPanelComponent } from './news-panel.component';
 
-import { NewsControlPanelComponent } from './news-panel.component';
-
-describe('NewsControlPanelComponent', () => {
-  let component: NewsControlPanelComponent;
-  let fixture: ComponentFixture<NewsControlPanelComponent>;
+describe('NewsPanelComponent', () => {
+  let component: NewsPanelComponent;
+  let fixture: ComponentFixture<NewsPanelComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [NewsControlPanelComponent]
+    TestBed.configureTestingModule({ 
+      ...testModuleMetadata,
+      providers: [
+        AuthService,
+      ], 
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewsControlPanelComponent);
+    fixture = TestBed.createComponent(NewsPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
